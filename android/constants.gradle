@@ -1,0 +1,5 @@
+project.ext {
+  BRIGHTCOVE_VERSION = '6.18.6'
+  ANDROIDX_LEGACY_SUPPORT_V4 = '1.0.0'
+  ANDROIDX_MEDIA = '1.1.0'
+}
