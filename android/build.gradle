@@ -57,6 +57,7 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'com.brightcove.player:exoplayer2:6.18.6'
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "androidx.media:media:1.1.0"
+    implementation 'com.brightcove.player:exoplayer2:6.18.6'
 }
