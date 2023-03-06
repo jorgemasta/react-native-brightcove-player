@@ -1,5 +1,3 @@
-apply from: 'constants.gradle'
-
 buildscript {
     if (project == rootProject) {
         repositories {
