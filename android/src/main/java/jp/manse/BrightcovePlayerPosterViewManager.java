@@ -7,7 +7,7 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 
 
 public class BrightcovePlayerPosterViewManager extends SimpleViewManager<BrightcovePlayerPosterView> {
-  public static final String REACT_CLASS = "BrightcovePlayerPosterView";
+  public static final String REACT_CLASS = "BrightcovePlayerPoster";
 
   private final ReactApplicationContext applicationContext;
 
