@@ -23,7 +23,6 @@ public class BrightcovePlayerViewManager extends SimpleViewManager<BrightcovePla
   public static final int COMMAND_STOP_PLAYBACK = 4;
   public static final int COMMAND_TOGGLE_FULLSCREEN = 5;
   public static final int COMMAND_TOGGLE_IN_VIEW_PORT = 6;
-  public static final String EVENT_ADS_LOADED = "ads_loaded";
   public static final String EVENT_READY = "ready";
   public static final String EVENT_PLAY = "play";
   public static final String EVENT_PAUSE = "pause";
@@ -98,11 +97,6 @@ public class BrightcovePlayerViewManager extends SimpleViewManager<BrightcovePla
     view.setBitRate((int) bitRate);
   }
 
-  @ReactProp(name = "adVideoLoadTimeout")
-  public void setAdVideoLoadTimeout(BrightcovePlayerView view, int adVideoLoadTimeout) {
-    view.setAdVideoLoadTimeout((int) adVideoLoadTimeout);
-  }
-
   @ReactProp(name = "playbackRate")
   public void setPlaybackRate(BrightcovePlayerView view, float playbackRate) {
     view.setPlaybackRate(playbackRate);
@@ -167,7 +161,6 @@ public class BrightcovePlayerViewManager extends SimpleViewManager<BrightcovePla
   public @Nullable
   Map<String, Object> getExportedCustomDirectEventTypeConstants() {
     Map<String, Object> map = new HashMap<>();
-    map.put(EVENT_ADS_LOADED, (Object) MapBuilder.of("registrationName", "onAdsLoaded"));
     map.put(EVENT_READY, (Object) MapBuilder.of("registrationName", "onReady"));
     map.put(EVENT_PLAY, (Object) MapBuilder.of("registrationName", "onPlay"));
     map.put(EVENT_PAUSE, (Object) MapBuilder.of("registrationName", "onPause"));
