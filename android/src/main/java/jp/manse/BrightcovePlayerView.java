@@ -80,10 +80,16 @@ public class BrightcovePlayerView extends RelativeLayout implements LifecycleEve
     this.addView(this.brightcoveVideoView);
     this.brightcoveVideoView.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     this.brightcoveVideoView.finishInitialization();
-    this.mediaController = new BrightcoveMediaController(this.brightcoveVideoView);
-    this.brightcoveVideoView.setMediaController(this.mediaController);
+
     this.requestLayout();
+
+    this.fullScreenHandler = new FullScreenHandler(context, this.brightcoveVideoView, this);
+    this.mediaController = this.fullScreenHandler.initMediaController(this.brightcoveVideoView);
+
+    setupLayoutHack();
+
     ViewCompat.setTranslationZ(this, 9999);
+
 
     eventEmitter = this.brightcoveVideoView.getEventEmitter();
 
@@ -147,7 +153,7 @@ public class BrightcovePlayerView extends RelativeLayout implements LifecycleEve
         mediaController.setShowHideTimeout(controlbarTimeout);
         WritableMap event = Arguments.createMap();
         ReactContext reactContext = (ReactContext) BrightcovePlayerView.this.getContext();
-        reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(BrightcovePlayerView.this.getId(), BrightcovePlayerViewManager.EVENT_TOGGLE_ANDROID_FULLSCREEN, event);
+        reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(BrightcovePlayerView.this.getId(), BrightcovePlayerViewManager.EVENT_ENTER_FULLSCREEN, event);
       }
     });
     eventEmitter.on(EventType.EXIT_FULL_SCREEN, new EventListener() {
@@ -162,7 +168,7 @@ public class BrightcovePlayerView extends RelativeLayout implements LifecycleEve
         }
         WritableMap event = Arguments.createMap();
         ReactContext reactContext = (ReactContext) BrightcovePlayerView.this.getContext();
-        reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(BrightcovePlayerView.this.getId(), BrightcovePlayerViewManager.EVENT_TOGGLE_ANDROID_FULLSCREEN, event);
+        reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(BrightcovePlayerView.this.getId(), BrightcovePlayerViewManager.EVENT_EXIT_FULLSCREEN, event);
       }
     });
     eventEmitter.on(EventType.VIDEO_DURATION_CHANGED, new EventListener() {
@@ -235,13 +241,15 @@ public class BrightcovePlayerView extends RelativeLayout implements LifecycleEve
     }
   }
 
-    public void setFullscreen(boolean fullscreen) {
-        this.mediaController.show();
-        WritableMap event = Arguments.createMap();
-        event.putBoolean("fullscreen", fullscreen);
-        ReactContext reactContext = (ReactContext) BrightcovePlayerView.this.getContext();
-        reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(BrightcovePlayerView.this.getId(), BrightcovePlayerViewManager.EVENT_TOGGLE_ANDROID_FULLSCREEN, event);
+  public void setFullscreen(boolean fullscreen) {
+    if (fullscreen) {
+      this.fullScreenHandler.openFullscreenDialog();
+      this.brightcoveVideoView.getEventEmitter().emit(EventType.ENTER_FULL_SCREEN);
+    } else {
+      this.fullScreenHandler.closeFullscreenDialog();
+      this.brightcoveVideoView.getEventEmitter().emit(EventType.EXIT_FULL_SCREEN);
     }
+  }
 
   public void toggleFullscreen(boolean isFullscreen) {
     if (isFullscreen) {
@@ -352,9 +360,9 @@ public class BrightcovePlayerView extends RelativeLayout implements LifecycleEve
   private void playVideo(Video video) {
     BrightcovePlayerView.this.brightcoveVideoView.clear();
     BrightcovePlayerView.this.brightcoveVideoView.add(video);
-    if (BrightcovePlayerView.this.autoPlay) {
-        BrightcovePlayerView.this.brightcoveVideoView.start();
-    }
+    // if (BrightcovePlayerView.this.autoPlay) {
+    //   BrightcovePlayerView.this.brightcoveVideoView.start();
+    // }
   }
 
   private void fixVideoLayout() {
