@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BrightcovePlayerViewManager extends SimpleViewManager<BrightcovePlayerView> {
-  public static final String REACT_CLASS = "BrightcovePlayerView";
+  public static final String REACT_CLASS = "BrightcovePlayer";
   public static final int COMMAND_SEEK_TO = 1;
   public static final int COMMAND_PLAY = 2;
   public static final int COMMAND_PAUSE = 3;
