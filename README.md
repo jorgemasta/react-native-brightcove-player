@@ -43,7 +43,7 @@ platform :ios, '10.0'
 allprojects {
   repositories {
       maven {
-          url 'http://repo.brightcove.com/releases'
+          url 'https://repo.brightcove.com/releases'
       }
   }
 }
