@@ -12,8 +12,8 @@ import com.brightcove.player.model.Video;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.matejdr.brightcoveimaplayer.util.DefaultEventEmitter;
-import com.matejdr.brightcoveimaplayer.util.ImageLoader;
+import jp.manse.util.DefaultEventEmitter;
+import jp.manse.util.ImageLoader;
 
 public class BrightcovePlayerPosterView extends RelativeLayout implements LifecycleEventListener {
   private final ReactApplicationContext applicationContext;

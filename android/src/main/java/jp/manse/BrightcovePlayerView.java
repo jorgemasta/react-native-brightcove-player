@@ -41,7 +41,7 @@ import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.MappingTrackSelector;
-import com.matejdr.brightcoveimaplayer.util.FullScreenHandler;
+import jp.manse.util.FullScreenHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
